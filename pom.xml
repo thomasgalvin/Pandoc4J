@@ -28,13 +28,6 @@
             
         <dependency>
             <groupId>com.galvin.deps</groupId>
-            <artifactId>LoggingSimple</artifactId>
-            <version>1.0</version>
-            <type>pom</type>
-        </dependency>
-        
-        <dependency>
-            <groupId>com.galvin.deps</groupId>
             <artifactId>ApacheCommons</artifactId>
             <version>1.0</version>
             <type>pom</type>
@@ -46,6 +39,14 @@
             <version>1.0</version>
             <type>pom</type>
             <scope>provided</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>com.galvin.deps</groupId>
+            <artifactId>LoggingSimple</artifactId>
+            <version>1.0</version>
+            <type>pom</type>
+            <scope>test</scope>
         </dependency>
       
         <dependency>
