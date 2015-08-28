@@ -19,6 +19,14 @@ import static org.junit.Assert.*;
  * @author galvint
  */
 public class RenderTest {
+    private static final String HEADING = "<h1>Lorem ipsum dolor sit amet</h1>\n\n";
+    private static final String GREEKING = "Lorem ipsum dolor sit amet, consectetur "
+        + "adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore "
+        + "magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco "
+        + "laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor "
+        + "in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla "
+        + "pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa "
+        + "qui officia deserunt mollit anim id est laborum.\n\n";
     
     public RenderTest() {
     }
@@ -108,5 +116,26 @@ public class RenderTest {
         String actualHtml = pandoc.render( options, sourceText );
         
         assertEquals( "Generated HTML did not match expected", expectedHtml, actualHtml );
+    }
+    
+    @Test
+    public void largeFileTest() throws Exception {
+        int size = HEADING.length() * 25 + GREEKING.length() * 2500;
+        StringBuilder text = new StringBuilder(size);
+        for( int i = 0; i < 25; i++ ){
+            text.append( HEADING );
+            for( int j = 0; j < 100; j++ ){
+                text.append( GREEKING );
+            }
+        }
+        
+        Options options = new Options();
+        options.setFrom( Format.markdown );
+        options.setTo( Format.html5 );
+        options.setStandalone( Boolean.TRUE );
+        
+        Pandoc pandoc = new Pandoc( new File("/usr/local/bin/pandoc") );
+        String actualHtml = pandoc.render( options, text.toString() );
+        System.out.println( actualHtml );
     }
 }
