@@ -12,25 +12,38 @@ import galvin.KeyValue;
 import lombok.AllArgsConstructor;
 import lombok.experimental.Wither;
 
+/**
+ * A wrapper for all of Pandoc's options. For an in-depth exaplnation of what
+ * all of these options do, visit: http://pandoc.org/README.html
+ */
 @Data @NoArgsConstructor @AllArgsConstructor
 public class Options
 {
-    public Options( File executable, File output ){
+    /**
+     * This constructor is necessary for the @Wither annotation to work
+     * correctly.
+     * @param executable - the path to the Pandoc exe. 
+     * @param sources - the input files
+     * @param output the file to write the resulting document to. Can be null.
+     */
+    public Options( File executable, 
+                    List<File> sources,
+                    File output ){
         this.executable = executable;
+        this.sources = sources;
         this.output = output;
     }
     
+    /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// ///
+    
     @Wither private File executable;
+    @Wither private List<File> sources = new ArrayList();
+    @Wither private File output;
+    
+    /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// /// ///
     
     private Format from;
     private Format to;
-    
-    private List<File> sources = new ArrayList();
-    @Wither private File output;
-    
-    private Boolean standalone;
-    
-    ///
     
     private Boolean strict;
     private Boolean parseRaw;
@@ -58,6 +71,7 @@ public class Options
     private Boolean trace;
     private Boolean dumpArgs;
     private Boolean ignoreArgs;
+    private Boolean standalone;
     
     private Integer baseHeaderLevel;
     private Integer tabStop;
