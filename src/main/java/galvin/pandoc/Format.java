@@ -73,4 +73,12 @@ public enum Format
         }
         throw new IllegalArgumentException( "Output format " + name() + " is not supported." );
     }
+    
+    public boolean canBeSource() {
+        return source;
+    }
+    
+    public boolean canBeOutput() {
+        return output;
+    }
 }
