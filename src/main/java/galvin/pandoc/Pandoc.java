@@ -17,14 +17,37 @@ import org.apache.commons.lang3.StringUtils;
 @AllArgsConstructor
 public class Pandoc {
     private File executable;
-
-    public void toFile( Options options, File source, File output ) throws IOException {
+    
+    ////////
+    
+    public String render( Options options, File source ) throws IOException {
         List<File> sources = new ArrayList();
         sources.add( source );
-        toFile( options, sources, output );
+        return Pandoc.this.render( options, sources );
     }
     
-    public void toFile( Options options, List<File> sources, File output ) throws IOException {
+    public String render( Options options, List<File> sources ) throws IOException {
+        if( sources != null && !sources.isEmpty() ){
+            options = options.withSources( sources );
+        }
+        
+        return run( options, null );
+    }
+    
+    public String render( Options options, String source ) throws IOException {
+        return run( options, source );
+    }
+    
+    ////////
+    
+
+    public void render( Options options, File source, File output ) throws IOException {
+        List<File> sources = new ArrayList();
+        sources.add( source );
+        Pandoc.this.render( options, sources, output );
+    }
+    
+    public void render( Options options, List<File> sources, File output ) throws IOException {
         if( sources != null && !sources.isEmpty() ){
             options = options.withSources( sources );
         }
@@ -37,7 +60,7 @@ public class Pandoc {
         run( options, null );
     }
     
-    public void toFile( Options options, String source, File output ) throws IOException {
+    public void render( Options options, String source, File output ) throws IOException {
         if( output != null ) {
             options = options.withOutput( output );
             verifyOutput( options );
@@ -47,26 +70,6 @@ public class Pandoc {
     }
 
     //////////
-    
-    public String toString( Options options, File source ) throws IOException {
-        List<File> sources = new ArrayList();
-        sources.add( source );
-        return toString( options, sources );
-    }
-    
-    public String toString( Options options, List<File> sources ) throws IOException {
-        if( sources != null && !sources.isEmpty() ){
-            options = options.withSources( sources );
-        }
-        
-        return run( options, null );
-    }
-    
-    public String toString( Options options, String source ) throws IOException {
-        return run( options, source );
-    }
-    
-    ////////
     
     private String run( Options options, String source ) throws IOException {
         if( options.getExecutable() == null ) {

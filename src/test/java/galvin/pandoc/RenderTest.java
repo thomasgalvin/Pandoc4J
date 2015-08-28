@@ -50,7 +50,7 @@ public class RenderTest {
         options.setTo( Format.html5 );
         
         Pandoc pandoc = new Pandoc( new File("/usr/local/bin/pandoc") );
-        pandoc.toFile( options, source, output );
+        pandoc.render( options, source, output );
         
         String expectedHtml = FileUtils.readFileToString( expected );
         String actualHtml = FileUtils.readFileToString( output );
@@ -71,9 +71,9 @@ public class RenderTest {
         options.setTo( Format.html5 );
         
         Pandoc pandoc = new Pandoc( new File("/usr/local/bin/pandoc") );
-        pandoc.toFile( options, sourceText, output );
+        pandoc.render( options, sourceText, output );
         
-        String actualHtml = pandoc.toString( options, source );
+        String actualHtml = pandoc.render( options, source );
         assertEquals( "Generated HTML did not match expected", expectedHtml, actualHtml );
     }
     
@@ -87,7 +87,7 @@ public class RenderTest {
         options.setTo( Format.html5 );
         
         Pandoc pandoc = new Pandoc( new File("/usr/local/bin/pandoc") );
-        String actualHtml = pandoc.toString( options, source );
+        String actualHtml = pandoc.render( options, source );
         String expectedHtml = FileUtils.readFileToString( expected );
         assertEquals( "Generated HTML did not match expected", expectedHtml, actualHtml );
     }
@@ -105,7 +105,7 @@ public class RenderTest {
         options.setTo( Format.html5 );
         
         Pandoc pandoc = new Pandoc( new File("/usr/local/bin/pandoc") );
-        String actualHtml = pandoc.toString( options, sourceText );
+        String actualHtml = pandoc.render( options, sourceText );
         
         assertEquals( "Generated HTML did not match expected", expectedHtml, actualHtml );
     }
