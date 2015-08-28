@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>galvin</groupId>
+    <artifactId>Pandoc</artifactId>
+    <version>1.0.0</version>
+    <packaging>jar</packaging>
+
+    <description>
+        This library allows you to invoke Pandoc from within Java. For more
+        information on Pandoc, visit http://pandoc.org/
+    </description>
+
+    <dependencies>
+        <dependency>
+            <groupId>galvin</groupId>
+            <artifactId>Utils</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>com.galvin.deps</groupId>
+            <artifactId>ApacheCommons</artifactId>
+            <version>1.0</version>
+            <type>pom</type>
+        </dependency>
+        
+        <dependency>
+            <groupId>com.galvin.deps</groupId>
+            <artifactId>Lombok</artifactId>
+            <version>1.0</version>
+            <type>pom</type>
+            <scope>provided</scope>
+        </dependency>
+      
+        <dependency>
+            <groupId>com.galvin.deps</groupId>
+            <artifactId>JUnit</artifactId>
+            <version>1.0</version>
+            <type>pom</type>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+</project>
