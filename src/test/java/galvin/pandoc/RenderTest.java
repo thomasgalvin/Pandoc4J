@@ -6,6 +6,7 @@
 package galvin.pandoc;
 
 import java.io.File;
+import org.apache.commons.io.FileUtils;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -41,15 +42,20 @@ public class RenderTest {
     @Test
     public void testRender() throws Exception {
         File source = new File("target/test-classes/lorem.md");
-        File dest = new File("target/test-classes/lorem.html");
+        File expected = new File("target/test-classes/expected.html");
+        File output = new File("target/test-classes/lorem.html");
         
         Options options = new Options();
         options.getSources().add( source );
-        options.setOutput( dest );
+        options.setOutput( output );
         options.setFrom( Format.markdown );
         options.setTo( Format.html5 );
         
         Pandoc pandoc = new Pandoc( new File("/usr/local/bin/pandoc") );
         pandoc.renderFilesToFile( options );
+        
+        String expectedHtml = FileUtils.readFileToString( expected );
+        String actualHtml = FileUtils.readFileToString( output );
+        assertEquals( "Generated HTML did not match expected", expectedHtml, actualHtml );
     }
 }

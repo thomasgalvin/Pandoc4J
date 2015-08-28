@@ -124,13 +124,6 @@ public class Options
         List<String> commandSegments = new ArrayList();
         commandSegments.add( executable.getAbsolutePath() );
         
-        Iterator<String> iter = commandSegments.iterator();
-        while( iter.hasNext() ) {
-            if( StringUtils.isBlank( iter.next() ) ){
-                iter.remove();
-            }
-        }
-        
         commandSegments.add( getFrom( from )  );
         commandSegments.add( getTo( to )  );
         
@@ -216,6 +209,13 @@ public class Options
         
         for( File file : sources ){
             commandSegments.add( file.getAbsolutePath() );
+        }
+        
+        Iterator<String> iter = commandSegments.iterator();
+        while( iter.hasNext() ) {
+            if( StringUtils.isBlank( iter.next() ) ){
+                iter.remove();
+            }
         }
         
         String[] result = new String[ commandSegments.size() ];

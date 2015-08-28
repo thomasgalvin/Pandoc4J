@@ -20,8 +20,8 @@ public class Pandoc {
 
         options.setExecutable( executable );
 
-        String[] commandArray = options.getPandocCommand();
-        Process p = Runtime.getRuntime().exec( commandArray );
+        String[] command = options.getPandocCommand();
+        Process p = Runtime.getRuntime().exec( command );
         
         StreamSucker errorStream = new StreamSucker( p.getErrorStream(), "pandoc error" );
         StreamSucker messageStream = new StreamSucker( p.getInputStream(), "pandoc mesage" );
@@ -35,6 +35,21 @@ public class Pandoc {
         catch( InterruptedException ie ) {
             throw new IOException( "An error occured while waiting for Pandoc to exit", ie );
         }
+    }
+    
+    private void print( String[] command ){
+        System.out.println( "" );
+        System.out.println( "" );
+        System.out.println( "" );
+        System.out.println( "" );
+        for( String cmd : command ) {
+            System.out.print( cmd );
+            System.out.print( " " );
+        }
+        System.out.println( "" );
+        System.out.println( "" );
+        System.out.println( "" );
+        System.out.println( "" );
     }
 
     private void verifyInput( Options options ) throws IOException {
