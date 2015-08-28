@@ -72,6 +72,7 @@ public class Options
     private Boolean dumpArgs;
     private Boolean ignoreArgs;
     private Boolean standalone;
+    private Boolean listings;
     
     private Integer baseHeaderLevel;
     private Integer tabStop;
@@ -85,6 +86,7 @@ public class Options
     private String defaultImgExtension;
     private String idPrefix;
     private String titlePrefix;
+    private String latexEngineOpt;
     
     private File dataDir;
     private File filterExecutable;
@@ -102,13 +104,16 @@ public class Options
     private File bibliography;
     private File csl;
     private File citationAbbreviations;
+    private File extractMedia;
     
     private URL css;
+    private URL katexStylesheet;
     
     private List<KeyValue<String, String>> metadata = new ArrayList();
     private List<KeyValue<String, String>> variables = new ArrayList();
     
     private EmailObfuscation emailObfuscation;
+    private TrackChanges trackChanges;
     
     private Boolean latextmathml;
     private URL latextmathmlURL;
@@ -127,6 +132,12 @@ public class Options
     
     private Boolean mathjax;
     private URL mathjaxURL;
+    
+    private Boolean webtex;
+    private URL webtexURL;
+    
+    private Boolean katex;
+    private URL katexURL;
     
     public void verify() {
         if( executable == null ) {
@@ -175,6 +186,7 @@ public class Options
         commandSegments.add( getBoolean( trace, "--trace" )  );
         commandSegments.add( getBoolean( dumpArgs, "--dump-args" )  );
         commandSegments.add( getBoolean( ignoreArgs, "--ignore-args" )  );
+        commandSegments.add( getBoolean( listings, "--listings" )  );
         
         commandSegments.add( getInteger( baseHeaderLevel, "--base-header-level" )  );
         commandSegments.add( getInteger( tabStop, "--tab-stop" )  );
@@ -188,6 +200,7 @@ public class Options
         commandSegments.add( getString( defaultImgExtension, "--default-image-extension" )  );
         commandSegments.add( getString( idPrefix, "--id-prefix" )  );
         commandSegments.add( getString( titlePrefix, "--title-prefix" )  );
+        commandSegments.add( getString( latexEngineOpt, "--latex-enging-opt" )  );
         
         commandSegments.add( getFile( dataDir, "--data-dir" )  );
         commandSegments.add( getFile( filterExecutable, "--filter" )  );
@@ -205,8 +218,10 @@ public class Options
         commandSegments.add( getFile( bibliography, "--bibliography" )  );
         commandSegments.add( getFile( csl, "--csl" )  );
         commandSegments.add( getFile( citationAbbreviations, "--citation-abbreviations" )  );
+        commandSegments.add( getFile( extractMedia, "--extract-media" )  );
         
         commandSegments.add( getURL( css, "--css" )  );
+        commandSegments.add( getURL( katexStylesheet, "--katex-stylesheet" )  );
         
         if( metadata != null ){
             for( KeyValue keyValue : metadata ) {
@@ -221,6 +236,7 @@ public class Options
         }
         
         commandSegments.add( getEmailObfuscation( emailObfuscation )  );
+        commandSegments.add( getTrackChanges( trackChanges )  );
         
         commandSegments.add( getBooleanUrl( latextmathml, latextmathmlURL, "--latexmathml" )  );
         commandSegments.add( getBooleanUrl( asciitmathml, asciitmathmlURL, "--asciitmathml" )  );
@@ -228,6 +244,8 @@ public class Options
         commandSegments.add( getBooleanUrl( mimetex, mimetexURL, "--mimetex" )  );
         commandSegments.add( getBooleanUrl( jsmath, jsmathURL, "--jsmath" )  );
         commandSegments.add( getBooleanUrl( mathjax, mathjaxURL, "--mathjax" )  );
+        commandSegments.add( getBooleanUrl( webtex, webtexURL, "--webtex" )  );
+        commandSegments.add( getBooleanUrl( katex, katexURL, "--katex" )  );
         
         for( File file : sources ){
             commandSegments.add( file.getAbsolutePath() );
@@ -297,6 +315,13 @@ public class Options
     private String getEmailObfuscation( EmailObfuscation email ){
         if( email != null ){
             return "--email-obfuscation=" + email.name();
+        }
+        return "";
+    }
+    
+    private String getTrackChanges( TrackChanges trackChanges ) {
+        if( trackChanges != null ){
+            return "--track-changes=" + trackChanges.name();
         }
         return "";
     }

@@ -8,14 +8,16 @@ public enum Format
 {
     asciidoc( false, true ),
     beamer( false, true ),
+    commonmark( true, true ),
     context( false, true ),
     docbook( true, true ),
-    docx( false, true ),
+    dokuwiki( false, true ),
+    docx( true, true ),
     dzslides( false, true ),
-    epub( false, true ),
+    epub( true, true ),
     epub3( false, true ),
     fb2( false, true ),
-    haddock( true, false ),
+    haddock( true, true ),
     html( true, true ),
     html5( false, true ),
     icml( false, true ),
@@ -38,10 +40,13 @@ public enum Format
     revealjs( false, true ),
     rst( true, true ),
     rtf( false, true ),
+    s5( false, true ),
     slideous( false, true ),
     slidy( false, true ),
+    t2t( true, false ),
     texinfo( false, true ),
-    textile( true, true );
+    textile( true, true ),
+    twiki( true, false );
     
     private boolean source;
     private boolean output;

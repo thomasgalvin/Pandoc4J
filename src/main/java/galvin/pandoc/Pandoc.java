@@ -18,7 +18,7 @@ import org.apache.commons.lang3.StringUtils;
 public class Pandoc {
     private File executable;
     
-    ////////
+    //////// render to string ////////
     
     public String render( Options options, File source ) throws IOException {
         List<File> sources = new ArrayList();
@@ -38,8 +38,7 @@ public class Pandoc {
         return run( options, source );
     }
     
-    ////////
-    
+    //////// render to file ////////
 
     public void render( Options options, File source, File output ) throws IOException {
         List<File> sources = new ArrayList();

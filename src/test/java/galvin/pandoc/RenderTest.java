@@ -136,6 +136,5 @@ public class RenderTest {
         
         Pandoc pandoc = new Pandoc( new File("/usr/local/bin/pandoc") );
         String actualHtml = pandoc.render( options, text.toString() );
-        System.out.println( actualHtml );
     }
 }
