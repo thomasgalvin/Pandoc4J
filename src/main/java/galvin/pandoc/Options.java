@@ -8,6 +8,7 @@ import java.util.List;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
+import galvin.KeyValue;
 
 @Data @NoArgsConstructor
 public class Options
@@ -83,8 +84,8 @@ public class Options
     
     private URL css;
     
-    private List<KeyValue> metadata = new ArrayList();
-    private List<KeyValue> variables = new ArrayList();
+    private List<KeyValue<String, String>> metadata = new ArrayList();
+    private List<KeyValue<String, String>> variables = new ArrayList();
     
     private EmailObfuscation emailObfuscation;
     
@@ -279,7 +280,7 @@ public class Options
         return "";
     }
     
-    private String getMetadata( KeyValue keyValue ) {
+    private String getMetadata( KeyValue<String, String> keyValue ) {
         if( keyValue != null ){
             String key = keyValue.getKey();
             String value = keyValue.getValue();
@@ -295,7 +296,7 @@ public class Options
         return "";
     }
     
-    private String getVariable( KeyValue keyValue ) {
+    private String getVariable( KeyValue<String, String> keyValue ) {
         if( keyValue != null ){
             String key = keyValue.getKey();
             String value = keyValue.getValue();
