@@ -7,6 +7,7 @@ import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.apache.commons.io.IOUtils;
 
 @Data
 @NoArgsConstructor
@@ -14,19 +15,25 @@ import lombok.NoArgsConstructor;
 public class Pandoc {
     private File executable;
 
-    public void renderFilesToFile( Options options ) throws IOException {
-        verifyOutput( options );
+    public void export( Options options, File output ) throws IOException {
+        if( options.getExecutable() == null ) {
+            options = options.withExecutable( executable );
+        }
+        
+        if( output != null ) {
+            options = options.withOutput( output );
+        }
+
         verifyInput( options );
-
-        options.setExecutable( executable );
-
+        verifyOutput( options );
+        
         String[] command = options.getPandocCommand();
         Process p = Runtime.getRuntime().exec( command );
         
         StreamSucker errorStream = new StreamSucker( p.getErrorStream(), "pandoc error" );
-        StreamSucker messageStream = new StreamSucker( p.getInputStream(), "pandoc mesage" );
-
         errorStream.start();
+        
+        StreamSucker messageStream = new StreamSucker( p.getInputStream(), "pandoc mesage" );
         messageStream.start();
 
         try {
@@ -35,6 +42,28 @@ public class Pandoc {
         catch( InterruptedException ie ) {
             throw new IOException( "An error occured while waiting for Pandoc to exit", ie );
         }
+    }
+    
+    public String export( Options options ) throws IOException {
+        verifyInput( options );
+        options.setExecutable( executable );
+
+        String[] command = options.getPandocCommand();
+        Process p = Runtime.getRuntime().exec( command );
+        
+        StreamSucker errorStream = new StreamSucker( p.getErrorStream(), "pandoc error" );
+        errorStream.start();
+
+        String result = IOUtils.toString( p.getInputStream() );
+        
+        try {
+            p.waitFor();
+        }
+        catch( InterruptedException ie ) {
+            throw new IOException( "An error occured while waiting for Pandoc to exit", ie );
+        }
+        
+        return result;
     }
     
     private void print( String[] command ){

@@ -9,17 +9,24 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import galvin.KeyValue;
+import lombok.AllArgsConstructor;
+import lombok.experimental.Wither;
 
-@Data @NoArgsConstructor
+@Data @NoArgsConstructor @AllArgsConstructor
 public class Options
 {
-    private File executable;
+    public Options( File executable, File output ){
+        this.executable = executable;
+        this.output = output;
+    }
+    
+    @Wither private File executable;
     
     private Format from;
     private Format to;
     
     private List<File> sources = new ArrayList();
-    private File output;
+    @Wither private File output;
     
     private Boolean standalone;
     

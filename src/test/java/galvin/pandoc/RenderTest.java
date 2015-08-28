@@ -40,22 +40,37 @@ public class RenderTest {
     }
     
     @Test
-    public void testRender() throws Exception {
+    public void testFilesToFile() throws Exception {
         File source = new File("target/test-classes/lorem.md");
         File expected = new File("target/test-classes/expected.html");
         File output = new File("target/test-classes/lorem.html");
         
         Options options = new Options();
         options.getSources().add( source );
-        options.setOutput( output );
         options.setFrom( Format.markdown );
         options.setTo( Format.html5 );
         
         Pandoc pandoc = new Pandoc( new File("/usr/local/bin/pandoc") );
-        pandoc.renderFilesToFile( options );
+        pandoc.export( options, output );
         
         String expectedHtml = FileUtils.readFileToString( expected );
         String actualHtml = FileUtils.readFileToString( output );
+        assertEquals( "Generated HTML did not match expected", expectedHtml, actualHtml );
+    }
+    
+    @Test
+    public void testFilesToString() throws Exception {
+        File source = new File("target/test-classes/lorem.md");
+        File expected = new File("target/test-classes/expected.html");
+        
+        Options options = new Options();
+        options.getSources().add( source );
+        options.setFrom( Format.markdown );
+        options.setTo( Format.html5 );
+        
+        Pandoc pandoc = new Pandoc( new File("/usr/local/bin/pandoc") );
+        String actualHtml = pandoc.export( options );
+        String expectedHtml = FileUtils.readFileToString( expected );
         assertEquals( "Generated HTML did not match expected", expectedHtml, actualHtml );
     }
 }
