@@ -44,6 +44,7 @@ public class Options
     
     private Format from;
     private Format to;
+    private Boolean standalone;
     
     private Boolean strict;
     private Boolean parseRaw;
@@ -71,7 +72,6 @@ public class Options
     private Boolean trace;
     private Boolean dumpArgs;
     private Boolean ignoreArgs;
-    private Boolean standalone;
     private Boolean listings;
     
     private Integer baseHeaderLevel;
