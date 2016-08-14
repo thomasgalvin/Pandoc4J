@@ -35,6 +35,13 @@
         
         <dependency>
             <groupId>com.galvin.deps</groupId>
+            <artifactId>YamlBeans</artifactId>
+            <version>1.0</version>
+            <type>pom</type>
+        </dependency>
+        
+        <dependency>
+            <groupId>com.galvin.deps</groupId>
             <artifactId>Lombok</artifactId>
             <version>1.0</version>
             <type>pom</type>
